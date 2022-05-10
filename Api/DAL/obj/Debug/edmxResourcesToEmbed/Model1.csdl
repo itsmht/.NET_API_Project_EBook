@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EbookModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DOB" Type="DateTime" Precision="3" />
+    <Property Name="S_Admin_Id" Type="Int32" />
+    <NavigationProperty Name="SuperAdmin" Relationship="Self.FK_Admins_SuperAdmins" FromRole="Admins" ToRole="SuperAdmins" />
+    <NavigationProperty Name="ProductBooks" Relationship="Self.FK_ProductBooks_Admins" FromRole="Admins" ToRole="ProductBooks" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="Int32" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DOB" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Orders_Customers" FromRole="Customers" ToRole="Orders" />
+    <NavigationProperty Name="Payments" Relationship="Self.FK_Payments_Customers" FromRole="Customers" ToRole="Payments" />
+    <NavigationProperty Name="Carts" Relationship="EbookModel.FK_Carts_Customers" FromRole="Customer" ToRole="Cart" />
+  </EntityType>
+  <EntityType Name="OrderDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="Unitprice" Type="Double" Nullable="false" />
+    <Property Name="Product_Id" Type="Int32" />
+    <Property Name="Order_Id" Type="Int32" />
+    <Property Name="Process" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_OrderDetails_Orders" FromRole="OrderDetails" ToRole="Orders" />
+    <NavigationProperty Name="ProductBook" Relationship="Self.FK_OrderDetails_ProductBooks" FromRole="OrderDetails" ToRole="ProductBooks" />
+    <Property Name="Ratings" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="Customer_Id" Type="Int32" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Orders_Customers" FromRole="Orders" ToRole="Customers" />
+    <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Orders" FromRole="Orders" ToRole="OrderDetails" />
+    <NavigationProperty Name="Payments" Relationship="Self.FK_Payments_Orders" FromRole="Orders" ToRole="Payments" />
+  </EntityType>
+  <EntityType Name="Payment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Amount" Type="Double" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Order_Id" Type="Int32" />
+    <Property Name="Customer_Id" Type="Int32" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Payments_Customers" FromRole="Payments" ToRole="Customers" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Payments_Orders" FromRole="Payments" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="ProductBook">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+    <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="Process" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Admin_Id" Type="Int32" />
+    <Property Name="Seller_Id" Type="Int32" />
+    <NavigationProperty Name="Admin" Relationship="Self.FK_ProductBooks_Admins" FromRole="ProductBooks" ToRole="Admins" />
+    <NavigationProperty Name="OrderDetail" Relationship="Self.FK_OrderDetails_ProductBooks" FromRole="ProductBooks" ToRole="OrderDetails" />
+    <NavigationProperty Name="Seller" Relationship="Self.FK_ProductBooks_Sellers" FromRole="ProductBooks" ToRole="Sellers" />
+    <NavigationProperty Name="Carts" Relationship="EbookModel.FK_Carts_ProductBooks" FromRole="ProductBook" ToRole="Cart" />
+  </EntityType>
+  <EntityType Name="Seller">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="Int32" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DOB" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="ProductBooks" Relationship="Self.FK_ProductBooks_Sellers" FromRole="Sellers" ToRole="ProductBooks" />
+  </EntityType>
+  <EntityType Name="SuperAdmin">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="Int32" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DOB" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Admins" Relationship="Self.FK_Admins_SuperAdmins" FromRole="SuperAdmins" ToRole="Admins" />
+  </EntityType>
+  <Association Name="FK_Admins_SuperAdmins">
+    <End Role="SuperAdmins" Type="Self.SuperAdmin" Multiplicity="0..1" />
+    <End Role="Admins" Type="Self.Admin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SuperAdmins">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Admins">
+        <PropertyRef Name="S_Admin_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductBooks_Admins">
+    <End Role="Admins" Type="Self.Admin" Multiplicity="0..1" />
+    <End Role="ProductBooks" Type="Self.ProductBook" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admins">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductBooks">
+        <PropertyRef Name="Admin_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Customers">
+    <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_Customers">
+    <End Role="Customers" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Payments" Type="Self.Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="Customer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetails_Orders">
+    <End Role="Orders" Type="Self.Order" Multiplicity="0..1" />
+    <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetails_ProductBooks">
+    <End Role="ProductBooks" Type="Self.ProductBook" Multiplicity="1" />
+    <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="ProductBooks">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_Orders">
+    <End Role="Orders" Type="Self.Order" Multiplicity="0..1" />
+    <End Role="Payments" Type="Self.Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="Order_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductBooks_Sellers">
+    <End Role="Sellers" Type="Self.Seller" Multiplicity="0..1" />
+    <End Role="ProductBooks" Type="Self.ProductBook" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sellers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductBooks">
+        <PropertyRef Name="Seller_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EbookEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="Self.Admin" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="Payments" EntityType="Self.Payment" />
+    <EntitySet Name="ProductBooks" EntityType="Self.ProductBook" />
+    <EntitySet Name="Sellers" EntityType="Self.Seller" />
+    <EntitySet Name="SuperAdmins" EntityType="Self.SuperAdmin" />
+    <AssociationSet Name="FK_Admins_SuperAdmins" Association="Self.FK_Admins_SuperAdmins">
+      <End Role="SuperAdmins" EntitySet="SuperAdmins" />
+      <End Role="Admins" EntitySet="Admins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductBooks_Admins" Association="Self.FK_ProductBooks_Admins">
+      <End Role="Admins" EntitySet="Admins" />
+      <End Role="ProductBooks" EntitySet="ProductBooks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Customers" Association="Self.FK_Orders_Customers">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_Customers" Association="Self.FK_Payments_Customers">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetails_Orders" Association="Self.FK_OrderDetails_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetails_ProductBooks" Association="Self.FK_OrderDetails_ProductBooks">
+      <End Role="ProductBooks" EntitySet="ProductBooks" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_Orders" Association="Self.FK_Payments_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductBooks_Sellers" Association="Self.FK_ProductBooks_Sellers">
+      <End Role="Sellers" EntitySet="Sellers" />
+      <End Role="ProductBooks" EntitySet="ProductBooks" />
+    </AssociationSet>
+    <EntitySet Name="Carts" EntityType="EbookModel.Cart" />
+    <AssociationSet Name="FK_Carts_Customers" Association="EbookModel.FK_Carts_Customers">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Cart" EntitySet="Carts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Carts_ProductBooks" Association="EbookModel.FK_Carts_ProductBooks">
+      <End Role="ProductBook" EntitySet="ProductBooks" />
+      <End Role="Cart" EntitySet="Carts" />
+    </AssociationSet>
+    <EntitySet Name="sysdiagrams" EntityType="EbookModel.sysdiagram" />
+  </EntityContainer>
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="BookId" Type="Int32" Nullable="false" />
+    <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Customer" Relationship="EbookModel.FK_Carts_Customers" FromRole="Cart" ToRole="Customer" />
+    <NavigationProperty Name="ProductBook" Relationship="EbookModel.FK_Carts_ProductBooks" FromRole="Cart" ToRole="ProductBook" />
+  </EntityType>
+  <Association Name="FK_Carts_Customers">
+    <End Type="EbookModel.Customer" Role="Customer" Multiplicity="1" />
+    <End Type="EbookModel.Cart" Role="Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Carts_ProductBooks">
+    <End Type="EbookModel.ProductBook" Role="ProductBook" Multiplicity="1" />
+    <End Type="EbookModel.Cart" Role="Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductBook">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="BookId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+</Schema>

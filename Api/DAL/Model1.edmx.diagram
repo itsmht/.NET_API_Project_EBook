@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3f2f6233cccf4a15912e9702ca4f8ba6" Name="Diagram1">
+        <EntityTypeShape EntityType="EbookModel.Admin" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EbookModel.Customer" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EbookModel.OrderDetail" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EbookModel.Order" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EbookModel.Payment" Width="1.5" PointX="7.5" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EbookModel.ProductBook" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="EbookModel.Seller" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EbookModel.SuperAdmin" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <AssociationConnector Association="EbookModel.FK_Admins_SuperAdmins" ManuallyRouted="false" />
+        <AssociationConnector Association="EbookModel.FK_ProductBooks_Admins" ManuallyRouted="false" />
+        <AssociationConnector Association="EbookModel.FK_Orders_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="EbookModel.FK_Payments_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="EbookModel.FK_OrderDetails_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="EbookModel.FK_OrderDetails_ProductBooks" ManuallyRouted="false" />
+        <AssociationConnector Association="EbookModel.FK_Payments_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="EbookModel.FK_ProductBooks_Sellers" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="EbookModel.Cart" Width="1.5" PointX="7.5" PointY="5.75" />
+        <AssociationConnector Association="EbookModel.FK_Carts_Customers" />
+        <AssociationConnector Association="EbookModel.FK_Carts_ProductBooks" />
+        <EntityTypeShape EntityType="EbookModel.sysdiagram" Width="1.5" PointX="10.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,10 @@
+E:\Project C#\Api\DAL\bin\Debug\DAL.dll.config
+E:\Project C#\Api\DAL\bin\Debug\DAL.dll
+E:\Project C#\Api\DAL\bin\Debug\DAL.pdb
+E:\Project C#\Api\DAL\bin\Debug\EntityFramework.dll
+E:\Project C#\Api\DAL\bin\Debug\EntityFramework.xml
+E:\Project C#\Api\DAL\obj\Debug\DAL.csproj.AssemblyReference.cache
+E:\Project C#\Api\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+E:\Project C#\Api\DAL\obj\Debug\DAL.csproj.CopyComplete
+E:\Project C#\Api\DAL\obj\Debug\DAL.dll
+E:\Project C#\Api\DAL\obj\Debug\DAL.pdb
